@@ -1,23 +1,9 @@
 #!/usr/bin/env python3
-"""
-screen_pdfs.py – Screen a paper PDF against a regulation PDF for EU dual-use
-export controls using the Azure OpenAI Responses API.
+"""Screen paper.pdf vs regulation.pdf via Azure OpenAI Responses API.
 
-Usage:
-    python screen_pdfs.py paper.pdf regulation.pdf \
-        [--message "Additional context or instructions"] \
-        [--env .env] [--json]
+  python screen_pdfs.py paper.pdf regulation.pdf [-m MSG] [--env .env] [--json]
 
-Output (printed to stdout):
-    YES / NO / MAYBE
-    <summary>
-    1C001 - <name> (<reason>) (<where found>)
-    ...
-
-Environment variables (or .env file):
-    RESPONSES_API_URL          Azure OpenAI Responses API endpoint
-    RESPONSES_MODEL            Model deployment ID
-    OCP_APIM_SUBSCRIPTION_KEY  Subscription key (or OPENAI_API_KEY)
+Env: RESPONSES_API_URL, RESPONSES_MODEL, OCP_APIM_SUBSCRIPTION_KEY
 """
 
 from __future__ import annotations
@@ -26,162 +12,148 @@ import argparse
 import base64
 import json
 import os
-import re
-import sys
+import time
 import textwrap
 from pathlib import Path
-from typing import Any
 
 import httpx
 
-
-def _load_dotenv(env_path: Path) -> None:
-    if not env_path.exists():
-        return
-    with open(env_path) as fh:
-        for line in fh:
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, _, value = line.partition("=")
-            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
-
-
 SYSTEM_PROMPT = textwrap.dedent("""\
     You are an expert EU dual-use export-control analyst.
-    You will receive a research paper and the applicable export-control regulation.
-    Your task is to determine whether any goods, software, or technology described
-    in the paper fall under the export-control regulation.
+    You will receive a research paper and the applicable export-control regulation
+    (typically Annex I dual-use list). Determine whether any goods, software, or
+    technology described in the paper fall under that regulation.
 
     Respond ONLY with a JSON object with exactly these keys:
     {
       "verdict":  "YES" | "NO" | "MAYBE",
-      "summary":  "<one or two sentences describing how sanctions may or may not apply>",
+      "summary":  "<one or two sentences describing how controls may or may not apply>",
       "matches": [
         {
-          "control_number": "<e.g. 1C001>",
-          "name":           "<official name of the controlled item>",
-          "reason":         "<why this paper is relevant to this entry>",
+          "control_number": "<e.g. 1C001 or 9E001>",
+          "name":           "<official name of the controlled item / software / technology>",
+          "reason":         "<why this paper is relevant, including any term mapping>",
           "location":       "<where in the paper this was found, e.g. section / page>"
         }
       ]
     }
 
     Rules:
-    - verdict must be YES if there is at least one clear match, MAYBE if uncertain,
-      NO if no matches are found.
-    - matches may be an empty list when verdict is NO.
-    - Be concise but precise. Do not invent control numbers.
+    - Match semantically, not only by identical wording. Scientific terms often differ
+      from legal control-list terms (e.g. drone ≈ UAV ≈ UAS ≈ unmanned aerial vehicle;
+      PEEK ≈ polyarylene ketone; CFRP ≈ carbon-fibre / filamentary materials).
+    - Translate the paper's scientific language into control-list concepts before deciding.
+    - Assess tangible items (typically A/B/C) AND intangible items: software (D) and
+      technology (E). Detailed design, manufacturing, process parameters, test methods,
+      algorithms, or "use" know-how in a publication or research plan may be controlled
+      technology/software relating to a tangible entry even when no hardware is exported.
+    - If a tangible control may apply, also check related D/E entries for that item family.
+    - Public-domain publication may limit technology controls, but still report candidate
+      entries; use MAYBE when classification depends on missing thresholds or intent.
+    - Prefer MAYBE over NO when evidence is incomplete (e.g. missing performance figures).
+    - Be biased towards YES/MAYBE when unsure, unless clearly NO.
+    - Be concise but precise. Never invent control numbers.
     - Do NOT include any text outside the JSON object.
+    - verdict = YES if at least one clear match; MAYBE if uncertain; NO if none.
+    - matches may be empty when verdict is NO.
 """)
 
 
-def _call_responses_api(
-    paper_path: Path,
-    regulation_path: Path,
-    user_message: str,
-    cfg: dict[str, str],
-) -> dict[str, Any]:
-    def _b64(path: Path) -> str:
-        return base64.standard_b64encode(path.read_bytes()).decode()
+def load_dotenv(path: Path) -> None:
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, _, v = line.partition("=")
+            os.environ.setdefault(k.strip(), v.strip().strip("\"'"))
 
-    additional = f"\n\n### ADDITIONAL CONTEXT\n\n{user_message.strip()}" if user_message.strip() else ""
-    user_text = (
+
+def b64(path: Path) -> str:
+    return base64.standard_b64encode(path.read_bytes()).decode()
+
+
+def screen(paper: Path, regulation: Path, message: str = "") -> tuple[dict, dict]:
+    key = os.environ["OCP_APIM_SUBSCRIPTION_KEY"]
+    text = (
         "The first attached file is the REGULATION. "
         "The second attached file is the PAPER to screen. "
         "Perform the export-control screening and return the JSON."
-        + additional
     )
+    if message.strip():
+        text += f"\n\n### ADDITIONAL CONTEXT\n\n{message.strip()}"
 
-    payload: dict[str, Any] = {
-        "model": cfg["model"],
+    payload = {
+        "model": os.environ["RESPONSES_MODEL"],
         "instructions": SYSTEM_PROMPT,
         "text": {"format": {"type": "json_object"}},
-        "input": [
-            {
-                "role": "user",
-                "content": [
-                    {"type": "input_file", "filename": regulation_path.name,
-                     "file_data": f"data:application/pdf;base64,{_b64(regulation_path)}"},
-                    {"type": "input_file", "filename": paper_path.name,
-                     "file_data": f"data:application/pdf;base64,{_b64(paper_path)}"},
-                    {"type": "input_text", "text": user_text},
-                ],
-            }
-        ],
+        "input": [{
+            "role": "user",
+            "content": [
+                {"type": "input_file", "filename": regulation.name,
+                 "file_data": f"data:application/pdf;base64,{b64(regulation)}"},
+                {"type": "input_file", "filename": paper.name,
+                 "file_data": f"data:application/pdf;base64,{b64(paper)}"},
+                {"type": "input_text", "text": text},
+            ],
+        }],
     }
-
-    url = cfg["url"]
     headers = {
         "Content-Type": "application/json",
-        "Ocp-Apim-Subscription-Key": cfg["api_key"],
-        "api-key": cfg["api_key"],
+        "Ocp-Apim-Subscription-Key": key,
+        "api-key": key,
     }
-
     with httpx.Client(timeout=300.0) as client:
-        resp = client.post(url, headers=headers, json=payload)
-    if resp.status_code >= 400:
-        raise RuntimeError(f"Responses API HTTP {resp.status_code}: {resp.text[:800]}")
+        last_err = ""
+        for attempt in range(1, 4):
+            resp = client.post(os.environ["RESPONSES_API_URL"].rstrip("/"), headers=headers, json=payload)
+            if not resp.is_error:
+                data = resp.json()
+                break
+            last_err = f"HTTP {resp.status_code}: {resp.text[:800]}"
+            # Retry transient gateway failures
+            if resp.status_code >= 500 and attempt < 3:
+                time.sleep(5 * attempt)
+                continue
+            raise RuntimeError(last_err)
+        else:
+            raise RuntimeError(last_err)
 
-    data = resp.json()
-    content = ""
-    for item in data.get("output", []):
-        if item.get("type") == "message":
-            for part in item.get("content", []):
-                if part.get("type") == "output_text":
-                    content = part.get("text", "")
-                    break
-        if content:
-            break
-    if not content:
-        raise RuntimeError(f"No output_text in response:\n{json.dumps(data)[:600]}")
-
-    content = content.strip()
-    try:
-        return json.loads(content)
-    except json.JSONDecodeError:
-        match = re.search(r"\{.*\}", content, re.S)
-        if match:
-            return json.loads(match.group(0))
-        raise RuntimeError(f"Model did not return valid JSON:\n{content[:600]}")
+    content = next(
+        part["text"]
+        for item in data["output"] if item.get("type") == "message"
+        for part in item.get("content", []) if part.get("type") == "output_text"
+    )
+    return json.loads(content), data.get("usage") or {}
 
 
-def format_output(result: dict[str, Any]) -> str:
-    lines = [result.get("verdict", "MAYBE").upper(), "", result.get("summary", "").strip()]
+def format_output(result: dict, usage: dict) -> str:
+    lines = [result["verdict"].upper(), "", result.get("summary", "")]
     for m in result.get("matches", []):
-        lines.append(f"{m.get('control_number','?')} - {m.get('name','')} ({m.get('reason','')}) ({m.get('location','')})")
+        lines.append(f"{m['control_number']} - {m['name']} ({m['reason']}) ({m['location']})")
+    u = usage
+    lines += [
+        "",
+        f"USAGE: input_tokens={u.get('input_tokens', '?')} "
+        f"output_tokens={u.get('output_tokens', '?')} "
+        f"total_tokens={u.get('total_tokens', '?')}",
+    ]
     return "\n".join(lines)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Screen a research paper PDF against a regulation PDF for EU dual-use export controls."
-    )
-    parser.add_argument("paper", type=Path)
-    parser.add_argument("regulation", type=Path)
-    parser.add_argument("--message", "-m", default="")
-    parser.add_argument("--env", type=Path, default=Path(__file__).parent / ".env")
-    parser.add_argument("--json", action="store_true", dest="output_json")
-    args = parser.parse_args()
+    p = argparse.ArgumentParser()
+    p.add_argument("paper", type=Path)
+    p.add_argument("regulation", type=Path)
+    p.add_argument("-m", "--message", default="")
+    p.add_argument("--env", type=Path, default=Path(__file__).parent / ".env")
+    p.add_argument("--json", action="store_true")
+    args = p.parse_args()
 
-    _load_dotenv(args.env)
-
-    api_key = os.environ.get("OCP_APIM_SUBSCRIPTION_KEY") or os.environ.get("OPENAI_API_KEY") or ""
-    if not api_key:
-        sys.exit("ERROR: OCP_APIM_SUBSCRIPTION_KEY (or OPENAI_API_KEY) is not set.")
-
-    cfg = {
-        "url": os.environ.get("RESPONSES_API_URL", "https://aalto-openai-apigw.azure-api.net/v1/openai/responses").rstrip("/"),
-        "model": os.environ.get("RESPONSES_MODEL", "gpt-5-2025-08-07"),
-        "api_key": api_key,
-    }
-
-    result = _call_responses_api(args.paper, args.regulation, args.message, cfg)
-
-    if args.output_json:
-        print(json.dumps(result, indent=2, ensure_ascii=False))
+    load_dotenv(args.env)
+    result, usage = screen(args.paper, args.regulation, args.message)
+    if args.json:
+        print(json.dumps({"result": result, "usage": usage}, indent=2, ensure_ascii=False))
     else:
-        print(format_output(result))
+        print(format_output(result, usage))
 
 
 if __name__ == "__main__":
