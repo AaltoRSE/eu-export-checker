@@ -1,0 +1,53 @@
+MODEL: gpt-5-2025-08-07
+
+================================================================================
+PAPER: Diabetes or endocrinopathy admitted in the COVID-19 ward
+================================================================================
+
+NO
+
+The paper is a clinical report on managing diabetes/endocrine conditions in hospitalized COVID-19 patients. It contains no controlled materials, equipment, software, or enabling technology for the development, production, or use of dual‑use items (e.g., pathogens, precursors, specialized equipment) under Annex I; it provides only general clinical practices and observations.
+
+USAGE: input_tokens=214393 output_tokens=661 total_tokens=215054
+
+
+================================================================================
+PAPER: Intra-spacecraft optical communication solutions using discrete transceiver
+================================================================================
+
+MAYBE
+
+The paper discloses the design and radiation evaluation of intra‑spacecraft optical data‑link transceivers intended for use onboard satellites. Such onboard data‑handling equipment is captured by 9A004.e, and the detailed design information could be 9E001 technology. However, because this is a public scientific publication and performance thresholds are not fully specified, classification as controlled technology may be limited by the public-domain exemption.
+9A004.e - On-board systems or equipment, specially designed for "spacecraft", having functions of 'command and telemetry data handling' or 'payload data handling' or 'attitude and orbit control' (The work develops and demonstrates discrete optical transceivers and intra‑satellite free‑space/fibre data links as part of an onboard communication bus for small satellites, explicitly designed for the spacecraft environment (radiation testing, intra‑spacecraft architecture). This constitutes onboard data‑handling/communication equipment specially designed for spacecraft.) (Abstract and Introduction; Section 2 Module Design; Section 3 Radiation analysis; Section 4 Implementation (free‑space and glass‑fiber intra‑spacecraft links))
+9E001 - Technology for the development or production of equipment specified in Category 9 (The paper includes circuit schematics (TX/RX), equations for transimpedance amplifier stages, filtering and comparator design, gain/bandwidth calculations, link budgets, and radiation test methodologies, which constitute detailed design and development know‑how for 9A004.e onboard spacecraft equipment. While published information may be exempt as 'in the public domain', the content is development technology for a controlled item.) (Section 2 (equations 1–8, Figures 2–4); Section 4 (system architectures, link equations 9–12; Figures 8–11))
+
+USAGE: input_tokens=225582 output_tokens=2254 total_tokens=227836
+
+
+================================================================================
+PAPER: Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications
+================================================================================
+
+MAYBE
+
+The paper describes manufacturing technology for high‑modulus carbon‑fibre composite laminates with tungsten foils for space structures and gives a detailed HF–HNO3–H2SO4 surface‑etching recipe. While no controlled hardware is exported, (i) publication of process parameters could be considered technology for producing 1A002 composite structures (normally decontrolled if in the public domain), and (ii) the chemicals used include hydrogen fluoride, a 1C350 precursor chemical whose export is controlled.
+1E001 - Technology according to the General Technology Note for the development or production of equipment or materials specified in Categories 1B or 1C (including composite structures of 1A002) (The paper provides lay-up, materials, autoclave cure cycle and interface preparation steps for manufacturing a CFRP laminate using high‑modulus carbon fibres (M40J, likely meeting 1C010 thresholds) with tungsten foils; these details constitute production technology for 1A002 composite structures. Such information is generally decontrolled when in the public domain, but it is relevant to export‑control screening.) (Section 2.1 Materials and methods; Fig. 1 (autoclave cure cycle) and Fig. 2 (lay-up/geometry); throughout results/discussion on adhesion and interface design)
+1C350.24 - Hydrogen fluoride (CAS 7664-39-4) – Chemicals which may be used as precursors for toxic chemical agents (The HFNS surface treatment recipe explicitly uses hydrofluoric acid as part of the etchant mixture. While the paper only describes laboratory use, the chemical itself is controlled for export under 1C350.) (Table 1 (HFNS surface treatment process – hydrofluoric acid, nitric acid, sulfuric acid mixture with immersion time))
+
+USAGE: input_tokens=225595 output_tokens=3258 total_tokens=228853
+
+
+================================================================================
+PAPER: Overview of ground-based testing of components made from electrically-conducting doped peek for space applications
+================================================================================
+
+MAYBE
+
+The paper describes additive manufacturing of spacecraft secondary structures (brackets, housings) made from doped PEEK. PEEK is a polyarylene ketone controlled under 1C008.d, but applicability to finished parts can be case‑dependent. The components could also be seen as composite structures for spacecraft, yet 1A002/9A010 applicability is uncertain (short chopped fibres; 9A010 mass thresholds).
+1C008.d - Non‑fluorinated polymeric substances – Polyarylene ketones (PEEK (polyether ether ketone) is a polyarylene ketone. The paper fabricates and tests electrically conducting, carbon‑fibre/nanodiamond‑doped PEEK parts for satellites; exports of PEEK material or articles made from it are often classified under 1C008.d.) (Title and Abstract; Sections 2.2–2.3; throughout (e.g., 'doped PEEK', 'carbon‑fibre doped PEEK brackets'))
+1A002 - Composite structures or laminates (The brackets are printed from carbon‑fibre‑doped PEEK (organic matrix with carbon fibres), which can fall under composite structures. However, the fibres appear chopped/short for FFF, and 1A002/1C010 notes exclude mechanically chopped fibres ≤25 mm, so applicability is uncertain.) (Sections 2.3, 3.6, 4 (e.g., 'FFF‑printed carbon‑fibre doped PEEK brackets'))
+9A010 - Specially designed components, systems and structures for launch vehicles or spacecraft (The work redesigns and manufactures secondary spacecraft structural parts (OBC housing, RF housing, optical sensor enclosure, brackets) for GEO satellites. Some spacecraft structures can fall under 9A010(a), but that entry applies only to composite components each exceeding 10 kg; the parts here appear well below that, so classification is uncertain.) (Abstract; Sections 2.1–2.3; 3.5–4 (use on communication satellites; vibration qualification))
+
+USAGE: input_tokens=221205 output_tokens=3624 total_tokens=224829
+
+

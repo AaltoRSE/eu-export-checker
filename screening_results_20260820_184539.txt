@@ -1,0 +1,51 @@
+MODEL: gpt-5-2025-08-07
+
+================================================================================
+PAPER: Diabetes or endocrinopathy admitted in the COVID-19 ward
+================================================================================
+
+NO
+
+The paper is a clinical report on management of diabetes/endocrine conditions in COVID-19 wards (insulin regimens, hydroxychloroquine effects, adrenal/thyroid care). It does not describe controlled goods, software, or technology as defined in Annex I.
+
+USAGE: input_tokens=214393 output_tokens=352 total_tokens=214745
+
+
+================================================================================
+PAPER: Intra-spacecraft optical communication solutions using discrete transceiver
+================================================================================
+
+MAYBE
+
+The paper describes the design and testing of an intra‑spacecraft optical data bus using discrete LEDs/photodiodes and associated receiver/transmitter electronics, intended for use on small satellites. Such on‑board data‑handling equipment is potentially covered by 9A004 (spacecraft on‑board systems) and the detailed circuit‑level design information may constitute 9E001 technology for the development of 9A004 items. Whether controls apply depends on whether the design is considered public‑domain information and whether the resulting hardware is ‘specially designed’ on‑board spacecraft equipment.
+9A004 - Space launch vehicles, spacecraft, spacecraft buses, spacecraft payloads, and on‑board systems or equipment (The work develops an on‑board optical communication link (optical data bus) for intra‑spacecraft communications to handle command/telemetry and payload data on small satellites. This fits 'on‑board systems or equipment, specially designed for spacecraft,' particularly for command/telemetry or payload data handling functions.) (Abstract and Introduction; Section 2 (Module design for on‑board transceiver); Section 4 (Implementation of intra‑spacecraft free‑space and fibre‑based links))
+9E001 - Technology for the development or production of items in 9A (including on‑board spacecraft equipment) (The paper provides detailed circuit topology, equations, component selection, bandwidth/threshold calculations, noise/ambient rejection approaches, radiation response data, and link budget/geometry for implementing the optical transceiver and bus on spacecraft. This constitutes development 'technology' for 9A004 on‑board equipment, unless excluded as information in the public domain.) (Section 2 (transmitter/receiver architecture, equations 1–8, frequency responses); Section 3 (radiation test methods/results); Section 4 (system architecture and link design))
+
+USAGE: input_tokens=225582 output_tokens=2034 total_tokens=227616
+
+
+================================================================================
+PAPER: Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications
+================================================================================
+
+MAYBE
+
+The paper describes a tungsten surface-treatment process for spacecraft composites that uses hydrogen fluoride (HF) in an HF–HNO3–H2SO4 etchant. HF is a controlled chemical precursor under 1C350; export of this chemical or relevant mixtures may require a licence. The tungsten/CFRP structures and the surface-treatment know‑how do not themselves clearly map to any specific dual‑use control.
+1C350 - Chemicals which may be used as precursors for toxic chemical agents (The HFNS process explicitly uses hydrogen fluoride (HF), which is listed in 1C350 (entry 24). While the paper is research on surface treatment and not chemical production, export of HF or the HF-containing etchant mixture described could be controlled.) (Table 1 and Section 2.1 (description of hydrofluoric–nitric–sulphuric-acid (HFNS) treatment using hydrofluoric acid))
+
+USAGE: input_tokens=225595 output_tokens=2439 total_tokens=228034
+
+
+================================================================================
+PAPER: Overview of ground-based testing of components made from electrically-conducting doped peek for space applications
+================================================================================
+
+MAYBE
+
+The paper describes manufacturing and testing of satellite brackets, housings and enclosures made from electrically‑conductive doped PEEK. PEEK (a polyarylene ketone) is a controlled polymer under 1C008, but it is unclear whether finished parts (rather than the polymer material itself) are intended for export. The parts are thermoplastic composites; if made from controlled prepregs/continuous fibres they could fall under 1A002, but the FFF process likely uses chopped fibres which are generally decontrolled.
+1C008.d - Non‑fluorinated polymeric substances – Polyarylene ketones (The work uses PEEK and electrically conducting doped PEEK (polyarylene ketone) as the base material for spacecraft components; this polymer family is explicitly controlled under 1C008.d. The paper discusses material compounding/doping and its application to space parts.) (Abstract; Sections 2.1–2.3; throughout (e.g., 'electrically‑conducting doped PEEK', 'carbon‑fibre doped PEEK brackets'))
+1A002 - Composite structures or laminates (The components are thermoplastic composites (PEEK matrix with carbon fibres) intended for spacecraft structures. If manufactured from controlled prepregs/preforms or continuous fibres (1C010.e/1C010.b, c, d), 1A002 may apply. However, the paper indicates FFF using carbon‑fibre‑doped filaments (likely chopped fibres), which may be outside 1A002.) (Sections 2.3, 3.6 and 4 (e.g., 'thermoplastic composite corner brackets', 'FFF‑printed carbon‑fibre doped PEEK brackets'))
+
+USAGE: input_tokens=221205 output_tokens=3170 total_tokens=224375
+
+
