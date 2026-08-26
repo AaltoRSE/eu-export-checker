@@ -28,6 +28,31 @@ Batch-screen papers listed in `run_all_screenings.sh` (writes a timestamped
 bash run_all_screenings.sh
 ```
 
+## PDF conversion utility
+
+Convert a PDF into separate output files (markdown text + extracted images):
+
+```bash
+python document_conversion_service.py path/to/input.pdf path/to/output_dir
+```
+
+Outputs are written under `output_dir`:
+
+- `document.md` (full extracted markdown text)
+- `images/` (one PNG per extracted picture)
+- `tables.md` (table dump when tables are detected)
+- `conversion_manifest.json` (metadata and file paths)
+
+You can also call it from Python:
+
+```python
+from document_conversion_service import convert_pdf_to_files
+
+result = convert_pdf_to_files("path/to/input.pdf", "path/to/output_dir")
+print(result.text_file)
+print(result.image_files)
+```
+
 ## Output
 
 ```
