@@ -1,0 +1,72 @@
+MODEL: Qwen/Qwen3.8-27B-FP8
+BACKEND: https://llm-gateway.k8s.aalto.fi/api/v1/chat/completions
+
+================================================================================
+PAPER: Diabetes or endocrinopathy admitted in the COVID-19 ward
+================================================================================
+
+NO
+
+The paper is a clinical medicine article describing the management of diabetic and endocrine patients in a hospital COVID-19 ward. It contains no controlled goods, software, or technology as defined in the EU dual-use regulation; all content relates to standard clinical practice (insulin therapy, glucose monitoring, adrenal/thyroid management) and basic pathophysiology discussion.
+
+IMAGES: paper=2 (figures=2, tables=0)
+
+USAGE: input_tokens=213979 output_tokens=698 total_tokens=214677
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Diabetes or endocrinopathy admitted in the COVID-19 ward.txt (2,716 chars)
+
+
+================================================================================
+PAPER: Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications
+================================================================================
+
+MAYBE
+
+The paper is a publicly published materials-science study on tungsten surface treatment for CFRP hybrids intended for spacecraft radiation shielding. The M40J high-modulus carbon fibres used in the CFRP prepreg likely meet the 1C210 specific-modulus threshold, and the application context connects to Category 9 spacecraft technology, but the public-domain publication status (GTN exemption) substantially limits the applicability of technology controls, and no export of tangible goods is described.
+1C210.a. - Carbon or aramid 'fibrous or filamentary materials' with specific modulus of 12.7 × 10^6 m or greater (The CFRP prepreg uses Toray M40J(12K) high-modulus carbon fibres (modulus ~570 GPa, density 1.76 g/cm³), yielding a specific modulus of ~33 × 10^6 m, which exceeds the 1C210.a.1. threshold of 12.7 × 10^6 m. The paper uses these fibres as a commercial material in a laboratory experiment rather than describing their manufacture or export, so the tangible-item control would apply to the fibres themselves if exported, not to the published research.) (Section 2.1 (Materials and methods) – description of CFRP prepreg tape with M40J(12K) carbon fibres)
+9E001 - Technology for the 'development' of equipment or software specified in 9A004 to 9A012, 9A350, 9B or 9D (The paper explicitly targets 'space applications' (spacecraft enclosures for radiation protection) and describes a surface-treatment process (HFNS) and adhesive-interface design methodology that could constitute 'technology' for the 'development' of spacecraft structures (9A004). However, the General Technology Note exempts information 'in the public domain' and the paper is published in a peer-reviewed journal (Applied Surface Science), which places the described process knowledge in the public domain. The paper is also arguably fundamental/fundamental-applied research rather than serial-production engineering data.) (Sections 1 (Introduction – space applications context), 2.1 (HFNS process in Table 1), 4.1 (Discussion of interface design for spacecraft composites))
+1E001 - Technology for the 'development' or 'production' of equipment or materials specified in 1A002 to 1A005, 1A006.b., 1A007, 1B or 1C (The paper describes a chemical surface-treatment process (HFNS) and characterisation methods (XPS three-layer model, AFM) for producing and evaluating tungsten-CFRP hybrid laminates. If the hybrid laminate is considered a 'composite' structure (1A002) or the prepreg a controlled material (1C010.e./1C210.c.), the process knowledge could be 'technology' for its production. Again, the public-domain publication status (GTN exemption) and the fundamental-research character of the work limit applicability.) (Section 2.1 (specimen preparation, autoclave cure cycle in Fig. 1), Section 2.3 (XPS oxide-thickness modelling), Table 1 (HFNS process parameters))
+
+IMAGES: paper=18 (figures=14, tables=4)
+
+USAGE: input_tokens=221849 output_tokens=5233 total_tokens=227082
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications.txt (15,613 chars)
+
+
+================================================================================
+PAPER: Intra-spacecraft optical communication solutions using discrete transceiver
+================================================================================
+
+MAYBE
+
+The paper describes a discrete optical transceiver (LEDs, photodiodes, op-amp circuits, PMMA light guides) designed for intra-spacecraft data communication on a small-satellite bus (AraMiS architecture). This could potentially constitute 'on-board systems for spacecraft' performing payload data handling under 9A004.e.2., but the components are basic COTS items at very low data rates (0.5–1 Mbps), and the publicly published nature of the work likely triggers the GTN public-domain exception for technology.
+9A004.e.2. - On-board systems or equipment, specially designed for 'spacecraft' – Payload data handling (The intra-spacecraft optical transceiver and inter-panel communication architecture described in the paper is an on-board data-communication system designed for a spacecraft bus (AraMiS modular small satellite). It handles transfer of data between satellite panels, which could be interpreted as 'management, storage, and processing of spacecraft mission equipment data.' However, the components are basic commercial LEDs (850/1550 nm), photodiodes, and op-amp circuits at 0.5–1 Mbps, and the work is published in an open journal, likely placing it in the public domain under the GTN.) (Sections 1, 2, 4 (entire paper); Figures 2, 8, 10; Table 1)
+9E001 - Technology for the 'development' of equipment specified in 9A004 to 9A012, 9A350, 9B or 9D (The paper provides detailed circuit design (transimpedance amplifier stage gains, bandwidth calculations, dynamic threshold comparator design), radiation TID test results for specific LEDs and photodiodes, and optical link-budget calculations for both free-space and fiber-guided intra-spacecraft communication. If the transceiver is considered 9A004.e. equipment, the design 'technology' would fall under 9E001. However, as a published journal article, the information is 'in the public domain' per the GTN, which exempts it from technology controls.) (Section 2 (Module Design, Equations 1–8), Section 3 (Radiation Analysis), Section 4 (Implementation, Equations 9–12), Figure 3, Figure 6)
+
+IMAGES: paper=20 (figures=18, tables=2)
+
+USAGE: input_tokens=219936 output_tokens=3301 total_tokens=223237
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Intra-spacecraft optical communication solutions using discrete transceiver.txt (11,099 chars)
+
+
+================================================================================
+PAPER: Overview of ground-based testing of components made from electrically-conducting doped peek for space applications
+================================================================================
+
+MAYBE
+
+The paper describes FFF-printed spacecraft structural components (brackets, enclosures) made from PEEK (a polyarylene ketone controlled under 1C008.d) doped with carbon fibre, which may additionally constitute a controlled prepreg under 1C010.e if the fibre meets performance thresholds. As a public-domain conference publication, technology controls are largely exempt, but the underlying materials and composite structures described could be controlled dual-use items if exported.
+1C008.d - Polyarylene ketones (PEEK (polyether ether ketone) is a polyarylene ketone, explicitly controlled under 1C008.d as a non-fluorinated polymeric substance. The paper uses PEEK as the matrix material for FFF-printed spacecraft components (carbon-fibre doped PEEK and nanodiamond doped PEEK filaments). The material itself is a listed controlled substance.) (Throughout the paper; Abstract, Section 2.2, Section 2.3, Section 4)
+1C010.e - Fully or partially resin-impregnated fibrous or filamentary materials (prepregs) (The carbon-fibre doped PEEK filament used for FFF could be classified as a prepreg (resin-impregnated fibrous material). 1C010.e.1.b requires organic/carbon fibres with specific modulus >10.15×10⁶ m and specific tensile strength >17.7×10⁴ m, combined with a resin specified in 1C008 (PEEK qualifies). The paper does not specify the exact carbon fibre grade or its specific modulus/strength values, so it is uncertain whether the thresholds are met. Standard aerospace carbon fibres (e.g., T700, T800) may approach or exceed these values.) (Section 2.2, Section 2.3, Section 4 (Figures 8-9 describe 'CFP' = carbon-fibre doped PEEK))
+9A010.a - Specially designed components and structures for spacecraft using composite materials (The FFF-printed 90° corner brackets and enclosures are structural components for geostationary communication satellites. 9A010.a.1 controls components exceeding 10 kg made from composites consisting of 1C010.e fibres and 1C008 resins. The parts described (brackets 70×35×35 mm, OBC enclosure 250×148×194 mm) are described as secondary structures and likely fall below the 10 kg threshold, making this a weak/uncertain match.) (Abstract, Section 2.3, Section 4)
+9E001 - Technology for development of spacecraft equipment per GTN (The paper describes FFF processing parameters, topology-optimized design approaches, and space-qualification test methodologies for manufacturing spacecraft structural components from PEEK composites. This could constitute 'technology' for the 'development' of equipment specified in 9A004/9A010. However, as a published conference paper (public domain), the GTN explicitly exempts information 'in the public domain' from technology controls, rendering this match academic.) (Sections 2-4 (materials, methods, testing, results))
+
+IMAGES: paper=12 (figures=12, tables=0)
+
+USAGE: input_tokens=218190 output_tokens=4583 total_tokens=222773
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Overview of ground-based testing of components made from electrically-conducting doped peek for space applications.txt (14,497 chars)
+
+

@@ -1,0 +1,71 @@
+MODEL: Qwen/Qwen3.8-27B
+BACKEND: http://127.0.0.1:8632/v1/chat/completions
+
+================================================================================
+PAPER: Diabetes or endocrinopathy admitted in the COVID-19 ward
+================================================================================
+
+NO
+
+The paper is a clinical medicine article describing the management of diabetes and endocrine disorders in hospitalized COVID-19 patients (glucose monitoring, insulin therapy, ACE2 receptor discussion, adrenal/thyroid care). It contains no dual-use goods, software, or technology, and no controlled biological agents, genetic elements, or related know-how.
+
+IMAGES: paper=2 (figures=2, tables=0)
+
+USAGE: input_tokens=213986 output_tokens=530 total_tokens=214516
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Diabetes or endocrinopathy admitted in the COVID-19 ward.txt (2,078 chars)
+
+
+================================================================================
+PAPER: Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications
+================================================================================
+
+MAYBE
+
+The paper describes CFRP hybrids (high-modulus M40J carbon fibres + MTM57 epoxy) with embedded tungsten foils for spacecraft radiation-shielding enclosures. High-performance carbon fibres and carbon/epoxy composites can fall under Category 1 controls, but the paper does not state the specific modulus / specific tensile strength thresholds needed to confirm 1C010.b or 1A002, and the resin Tg is below the prepreg control threshold, so classification is uncertain.
+1C010.b - Carbon 'fibrous or filamentary materials' (specific modulus > 14.65×10⁶ m and specific tensile strength > 26.82×10⁴ m) (The CFRP is reinforced with 'high-modulus M40J(12K) carbon fibres' (Toray). M40J is a high-modulus carbon fibre whose specific modulus likely exceeds the 14.65×10⁶ m threshold, but the paper gives no specific modulus / specific tensile strength values, so the dual threshold cannot be confirmed (M40J tensile strength may fall below 26.82×10⁴ m).) (Section 2.1 (Materials and methods), CFRP pre-preg description)
+1A002 - 'Composite' structures or laminates (organic matrix with controlled fibrous/filamentary materials or prepregs) (The paper fabricates CFRP laminates (05/W/05 lay-up) with embedded tungsten for space enclosures. Control would apply only if the carbon fibres/prepreg meet 1C010.c/.d/.e thresholds; the MTM57 epoxy resin Tg is below the 1C010.e.2.c (505 K) threshold and the fibres are 1C010.b-type, so applicability is unconfirmed.) (Section 2.1 and Fig. 2 (lay-up and specimen))
+1E001 - 'Technology' for the 'development' or 'production' of equipment or materials specified in 1A002–1A005, 1B or 1C (The paper discloses surface-treatment and lamination process parameters for tungsten-CFRP hybrids. However, as a published scientific article the information is in the public domain / basic scientific research, which the General Technology Note excludes from control; reported only as a candidate.) (Sections 2.1, 2.4, 4 (process and interface technology))
+
+IMAGES: paper=18 (figures=14, tables=4)
+
+USAGE: input_tokens=221888 output_tokens=3699 total_tokens=225587
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications.txt (9,128 chars)
+
+
+================================================================================
+PAPER: Intra-spacecraft optical communication solutions using discrete transceiver
+================================================================================
+
+MAYBE
+
+The paper describes a discrete optical transceiver and intra-spacecraft data-bus architecture (free-space and glass-fiber) that is radiation-tested and intended for small satellites, which could constitute on-board spacecraft equipment for data handling under 9A004 and related development technology under 9E001; however, as a public research publication using low-rate COTS components, the technology is likely in the public domain/basic scientific research and the 'specially designed for spacecraft' status is uncertain.
+9A004 - Spacecraft, spacecraft buses, spacecraft mission equipment and on-board systems/equipment (incl. 9A004.e on-board systems specially designed for spacecraft for command/telemetry or payload data handling) (The discrete optical transceiver and the panel-to-panel free-space/glass-fiber optical link are on-board data-handling equipment designed and radiation-tested (TID) for use inside small satellites (intra-spacecraft communication bus), mapping to 'on-board systems or equipment, specially designed for spacecraft' performing payload/telemetry data handling. Data rates are low (0.5–1 Mbps) and components are COTS, so 'specially designed' status and exact function are not fully established.) (Abstract; Section 2 (Module Design); Section 4 (Implementation, free-space and glass-fiber intra-spacecraft links); Figures 8, 10, 11)
+9E001 - Technology (per General Technology Note) for the development of equipment specified in 9A004 (spacecraft on-board systems/equipment) (The paper discloses design equations, transimpedance/comparator stage design, radiation-test methodology and link-budget calculations for the intra-spacecraft optical transceiver, i.e. development technology for 9A004 on-board equipment. As a published research article this is likely 'in the public domain'/'basic scientific research' (exempt under GTN), but it is reported as a candidate.) (Section 2 (Equations 1–8, transceiver design); Section 3 (radiation analysis); Section 4 (Equations 9–12, link design))
+
+IMAGES: paper=20 (figures=18, tables=2)
+
+USAGE: input_tokens=219979 output_tokens=1844 total_tokens=221823
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Intra-spacecraft optical communication solutions using discrete transceiver.txt (5,811 chars)
+
+
+================================================================================
+PAPER: Overview of ground-based testing of components made from electrically-conducting doped peek for space applications
+================================================================================
+
+MAYBE
+
+The paper reports ground-based qualification testing of low-mass, FFF-printed secondary spacecraft structures (brackets, enclosures) made from carbon-fibre/nanodiamond-doped PEEK. PEEK is a listed polyarylene ketone and the carbon-fibre/PEEK parts are organic-matrix composites for spacecraft, so candidate material/composite/spacecraft entries apply, but the finished-item and mass/fibre-performance thresholds and the public-domain (basic research) status of the publication likely release most of them, leaving classification uncertain.
+1C008.d - Non-fluorinated polymeric substances – polyarylene ketones (PEEK (polyether ether ketone) is a polyarylene ether ketone, i.e. a 'polyarylene ketone' controlled by 1C008.d. The paper's base filament material is doped PEEK; if the polymer/filament itself were exported it would fall under this entry. The paper, however, concerns printed finished parts rather than the raw polymer, so applicability is uncertain.) (Abstract; Section 2.2–2.3 (doped PEEK filament); Section 4.2 (nanodiamond-doped PEEK))
+1A002 - Composite structures or laminates (organic matrix + fibrous/filamentary materials) (The 'carbon-fibre doped PEEK' (CFP) brackets are an organic-matrix (PEEK) composite reinforced with carbon fibrous/filamentary material, mapping to 1A002.a.1/.b. However, the carbon fibre in a FFF filament is short/chopped and almost certainly below the 1C010.b high-performance thresholds, and Note 4 releases finished items specially designed for a specific application (here, spacecraft secondary-structure brackets). Hence only a candidate match.) (Abstract; Section 2.3 (bracket design); Fig. 1, Fig. 8, Fig. 9 (CF-PEEK brackets))
+9A010 - Specially designed components, systems and structures for launch vehicles or spacecraft (composites) (The parts (OBC enclosure, RF housing, optical sensor enclosure, corner brackets) are described as spacecraft secondary-structure components made from a PEEK (1C008) / carbon-fibre composite, which is the material family referenced by 9A010.a.1. But 9A010.a. requires each component to exceed 10 kg and to be 'specially designed' for the spacecraft; the small brackets and enclosures do not meet the mass threshold and are generic secondary parts, so this is at most a MAYBE candidate.) (Abstract; Section 2.3 (test articles for GEO communication satellites); Fig. 7)
+
+IMAGES: paper=12 (figures=12, tables=0)
+
+USAGE: input_tokens=218217 output_tokens=2020 total_tokens=220237
+
+REASONING: /scratch/rse/tiany4/eu-export-checker/.cache/reasoning/Overview of ground-based testing of components made from electrically-conducting doped peek for space applications.txt (5,311 chars)
+
+
