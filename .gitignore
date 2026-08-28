@@ -4,4 +4,7 @@ __pycache__/
 .venv/
 .DS_Store
 screening_results*.txt
+.cache/
 data/*.pdf
+data/regulation.html
+logs/

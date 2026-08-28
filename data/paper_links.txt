@@ -1,4 +1,6 @@
-# Sample papers and regulation used for local screening tests.
+# Sample inputs for local / Triton screening.
+
+## Papers (place PDFs under data/; filenames must match run_all_screenings.sh)
 
 Diabetes or endocrinopathy admitted in the COVID-19 ward
 https://doi.org/10.1111/eci.13262
@@ -10,6 +12,16 @@ Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon 
 https://www.sciencedirect.com/science/article/pii/S016943321402724X?via%3Dihub
 
 Overview of ground-based testing of components made from electrically-conducting doped peek for space applications
+(see project data/ or obtain the publisher PDF)
 
-Regulation (EU) 2021/821 — dual-use export controls (regulation.pdf)
-https://eur-lex.europa.eu/eli/reg/2021/821/oj
+## Regulation (EU) 2021/821 — dual-use (HTML)
+
+On a Triton **login** node (not inside sbatch):
+
+  bash fetch_regulation_html.sh
+
+Downloads ENG XHTML from EU Publications Cellar → data/regulation.html
+(CELEX default: 02021R0821-20251115; override with REGULATION_CELEX=…).
+
+EUR-Lex browser view (WAF often blocks curl):
+https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX%3A02021R0821-20251115

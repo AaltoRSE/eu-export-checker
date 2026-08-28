@@ -1,1 +1,4 @@
 httpx>=0.27
+docling>=2.70
+html2text>=2024.2.26
+Pillow>=10.0

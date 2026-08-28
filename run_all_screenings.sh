@@ -1,45 +1,32 @@
 #!/usr/bin/env bash
-# Screen all test papers against regulation.pdf and write results to screening_results.txt
 set -euo pipefail
 cd "$(dirname "$0")"
 
-REGULATION="data/regulation.pdf"
 OUTPUT="screening_results_$(date +%Y%m%d_%H%M%S).txt"
+MODEL="${LLM_MODEL:-$(grep '^LLM_MODEL=' .env | cut -d= -f2-)}"
+URL="${LLM_API_URL:-$(grep '^LLM_API_URL=' .env | cut -d= -f2-)}"
 
-# Read model name from .env for display
-MODEL="$(grep '^RESPONSES_MODEL=' .env | head -1 | cut -d= -f2- | tr -d ' "'\''')"
-if [[ -z "$MODEL" ]]; then
-  echo "ERROR: RESPONSES_MODEL not found in .env" >&2
-  exit 1
-fi
+shopt -s nullglob
+PAPERS=()
+for f in data/*.pdf; do
+  [[ "$(basename "$f")" == regulation.pdf ]] && continue
+  PAPERS+=("$f")
+done
+((${#PAPERS[@]})) || { echo "No paper PDFs in data/" >&2; exit 1; }
 
-PAPERS=(
-  "data/Diabetes or endocrinopathy admitted in the COVID-19 ward.pdf"
-  "data/Intra-spacecraft optical communication solutions using discrete transceiver.pdf"
-  "data/Hydrofluoric–nitric–sulphuric-acid surface treatment of tungsten for carbon fibre-reinforced composite hybrids in space applications.pdf"
-  "data/Overview of ground-based testing of components made from electrically-conducting doped peek for space applications.pdf"
-)
-
-: > "$OUTPUT"
 {
   echo "MODEL: $MODEL"
+  echo "BACKEND: $URL"
   echo
-} >> "$OUTPUT"
-echo "Model: $MODEL"
-echo 
-
-for paper in "${PAPERS[@]}"; do
-  title="$(basename "$paper" .pdf)"
-  {
+  for paper in "${PAPERS[@]}"; do
     echo "================================================================================"
-    echo "PAPER: $title"
+    echo "PAPER: $(basename "$paper" .pdf)"
     echo "================================================================================"
     echo
-    .venv/bin/python screen_pdfs.py "$paper" "$REGULATION"
+    .venv/bin/python screen_pdfs.py "$paper" || echo "ERROR: screening failed (see stderr)."
     echo
     echo
-  } >> "$OUTPUT"
-  echo "Done: $title"
-done
+  done
+} | tee "$OUTPUT"
 
-echo "All results written to $OUTPUT"
+echo "Results: $OUTPUT"
